@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Database
+*.db
+*.db-journal
+prisma/dev.db
+
+# Build
+dist/
+
+# Misc
+.DS_Store
+*.pem
+npm-debug.log*
