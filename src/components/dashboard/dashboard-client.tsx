@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import { ArrowRight, Droplets, Scale, Utensils } from "lucide-react";
+import { ArrowRight, Droplets, Flame, Scale, Utensils } from "lucide-react";
 import type { Goal, MealEntry, Food, WeightEntry, Profile, User } from "@prisma/client";
 import { CalorieRing } from "./calorie-ring";
 import { MacroProgress } from "./macro-progress";
@@ -44,6 +44,7 @@ interface DashboardClientProps {
     carbsG: number;
     fatG: number;
   }>;
+  streakDays: number;
   today: string;
 }
 
@@ -55,6 +56,7 @@ export function DashboardClient({
   waterMl,
   recentWeight,
   last7Days,
+  streakDays,
   today,
 }: DashboardClientProps) {
   const { t } = useLanguage();
@@ -98,9 +100,20 @@ export function DashboardClient({
       {/* Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">
-            {greeting}, {user?.name?.split(" ")[0] || "there"}
-          </h1>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h1 className="text-2xl font-bold">
+              {greeting}, {user?.name?.split(" ")[0] || "there"}
+            </h1>
+            {streakDays > 0 && (
+              <span
+                className="inline-flex items-center gap-1 rounded-full bg-orange-500/10 px-2.5 py-1 text-xs font-semibold text-orange-500"
+                title={t("dashboard.streakTooltip")}
+              >
+                <Flame className="w-3.5 h-3.5" />
+                {streakDays} {streakDays === 1 ? t("dashboard.streakDay") : t("dashboard.streakDays")}
+              </span>
+            )}
+          </div>
           <p className="text-sm text-muted-foreground mt-1">{displayDate}</p>
         </div>
         <Button asChild variant="outline" size="sm">

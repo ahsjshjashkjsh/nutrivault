@@ -156,7 +156,10 @@
     "targetLabel": "objectif",
     "waterIntake": "Hydratation",
     "waterRemaining": "L restants",
-    "waterGoalReached": "Objectif quotidien atteint !"
+    "waterGoalReached": "Objectif quotidien atteint !",
+    "streakDay": "jour d'affilée",
+    "streakDays": "jours d'affilée",
+    "streakTooltip": "Jours consécutifs avec des repas enregistrés"
   },
   "diary": {
     "title": "Journal alimentaire",
@@ -223,7 +226,14 @@
       "fat": "Lipides",
       "back": "Retour",
       "total": "Total"
-    }
+    },
+    "copyYesterday": "Copier d'hier",
+    "copyYesterdayHint": "Copier tous les repas de la veille",
+    "copiedFromYesterday": "Copié d'hier",
+    "nothingToCopy": "Rien d'enregistré hier à copier",
+    "itemCopied": "élément copié",
+    "itemsCopied": "éléments copiés",
+    "failedToCopy": "Échec de la copie des repas"
   },
   "settings": {
     "title": "Paramètres",
@@ -276,7 +286,11 @@
     "invalidCode": "Code invalide",
     "invalidCodeDesc": "Ce code promo n'est pas valide. Vérifiez et réessayez.",
     "premiumFree": "Premium GRATUIT avec votre code !",
-    "premiumFreeDesc": "Votre code débloque l'accès premium au lancement"
+    "premiumFreeDesc": "Votre code débloque l'accès premium au lancement",
+    "exportData": "Exportez vos données",
+    "exportDataDesc": "Téléchargez votre journal alimentaire et votre historique de poids au format CSV.",
+    "exportMeals": "Exporter les repas (CSV)",
+    "exportWeight": "Exporter le poids (CSV)"
   },
   "progress": {
     "title": "Progression",

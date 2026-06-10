@@ -77,6 +77,11 @@ export const mealEntrySchema = z.object({
   servingUnit: z.string().min(1, "Serving unit is required"),
 });
 
+export const mealEntryUpdateSchema = z.object({
+  servings: z.coerce.number().min(0.1, "Servings must be greater than 0").max(100).optional(),
+  servingSize: z.coerce.number().min(0.1, "Serving size must be greater than 0").max(10000).optional(),
+});
+
 // ─── Custom Food ──────────────────────────────────────────────────────────────
 
 export const customFoodSchema = z.object({

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Loader2, Settings, User, Target, LogOut,
   CheckCircle2, Zap, Tag, Lock, Crown, Camera,
+  Download, Scale, Utensils,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import type { User as PrismaUser, Profile, Goal } from "@prisma/client";
@@ -382,6 +383,31 @@ export function SettingsClient({ user }: SettingsClientProps) {
                     <p className="text-sm text-muted-foreground">{user.email}</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* ── EXPORT DATA ──────────────────────────────────── */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Download className="w-4 h-4" />
+                  {t("settings.exportData")}
+                </CardTitle>
+                <CardDescription>{t("settings.exportDataDesc")}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-col sm:flex-row gap-3">
+                <Button asChild variant="outline" size="sm">
+                  <a href="/api/export?type=meals" download>
+                    <Utensils className="w-3.5 h-3.5" />
+                    {t("settings.exportMeals")}
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <a href="/api/export?type=weight" download>
+                    <Scale className="w-3.5 h-3.5" />
+                    {t("settings.exportWeight")}
+                  </a>
+                </Button>
               </CardContent>
             </Card>
 

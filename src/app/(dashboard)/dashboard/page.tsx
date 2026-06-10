@@ -3,11 +3,12 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { format, subDays } from "date-fns";
 import { DashboardClient } from "@/components/dashboard/dashboard-client";
+import { computeStreak } from "@/lib/streak";
 
 async function getDashboardData(userId: string, today: Date) {
   const todayStr = format(today, "yyyy-MM-dd");
 
-  const [user, goal, todayEntries, todayWater, recentWeight, last7Days] = await Promise.all([
+  const [user, goal, todayEntries, todayWater, recentWeight, last7Days, streakEntries] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
       include: { profile: true },
@@ -46,7 +47,16 @@ async function getDashboardData(userId: string, today: Date) {
         }));
       })
     ),
+    // Distinct logged dates over the past year, for streak computation
+    prisma.mealEntry.findMany({
+      where: { userId, date: { gte: subDays(today, 365) } },
+      select: { date: true },
+      distinct: ["date"],
+    }),
   ]);
+
+  const loggedDates = new Set(streakEntries.map((e) => format(e.date, "yyyy-MM-dd")));
+  const streakDays = computeStreak(loggedDates, today);
 
   const dailyTotals = todayEntries.reduce(
     (acc, entry) => ({
@@ -75,6 +85,7 @@ async function getDashboardData(userId: string, today: Date) {
     waterMl,
     recentWeight,
     last7Days,
+    streakDays,
     today: todayStr,
   };
 }

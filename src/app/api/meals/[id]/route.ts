@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { mealEntryUpdateSchema } from "@/lib/validations";
 
 export async function DELETE(
   request: NextRequest,
@@ -41,6 +42,14 @@ export async function PATCH(
 
     const { id } = await params;
     const body = await request.json();
+    const parsed = mealEntryUpdateSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.errors[0].message },
+        { status: 400 }
+      );
+    }
 
     const entry = await prisma.mealEntry.findUnique({
       where: { id },
@@ -51,8 +60,8 @@ export async function PATCH(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    const servings = body.servings ?? entry.servings;
-    const servingSize = body.servingSize ?? entry.servingSize;
+    const servings = parsed.data.servings ?? entry.servings;
+    const servingSize = parsed.data.servingSize ?? entry.servingSize;
 
     const multiplier = (servings * servingSize) / entry.food.servingSize;
 

@@ -156,7 +156,10 @@
     "targetLabel": "target",
     "waterIntake": "Water Intake",
     "waterRemaining": "L remaining",
-    "waterGoalReached": "Daily goal reached!"
+    "waterGoalReached": "Daily goal reached!",
+    "streakDay": "day streak",
+    "streakDays": "day streak",
+    "streakTooltip": "Consecutive days with logged meals"
   },
   "diary": {
     "title": "Food Diary",
@@ -223,7 +226,14 @@
       "fat": "Fat",
       "back": "Back",
       "total": "Total"
-    }
+    },
+    "copyYesterday": "Copy yesterday",
+    "copyYesterdayHint": "Copy all meals from the previous day",
+    "copiedFromYesterday": "Copied from yesterday",
+    "nothingToCopy": "Nothing logged yesterday to copy",
+    "itemCopied": "item copied",
+    "itemsCopied": "items copied",
+    "failedToCopy": "Failed to copy meals"
   },
   "settings": {
     "title": "Settings",
@@ -276,7 +286,11 @@
     "invalidCode": "Invalid code",
     "invalidCodeDesc": "This promo code is not valid. Please check and try again.",
     "premiumFree": "Premium is FREE with your code!",
-    "premiumFreeDesc": "Your discount code will unlock premium access when it launches"
+    "premiumFreeDesc": "Your discount code will unlock premium access when it launches",
+    "exportData": "Export your data",
+    "exportDataDesc": "Download your meal diary and weight history as CSV files.",
+    "exportMeals": "Export meals (CSV)",
+    "exportWeight": "Export weight (CSV)"
   },
   "progress": {
     "title": "Progress",

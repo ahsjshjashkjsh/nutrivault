@@ -156,7 +156,10 @@
     "targetLabel": "obiettivo",
     "waterIntake": "Consumo d'acqua",
     "waterRemaining": "L rimanenti",
-    "waterGoalReached": "Obiettivo giornaliero raggiunto!"
+    "waterGoalReached": "Obiettivo giornaliero raggiunto!",
+    "streakDay": "giorno di fila",
+    "streakDays": "giorni di fila",
+    "streakTooltip": "Giorni consecutivi con pasti registrati"
   },
   "diary": {
     "title": "Diario alimentare",
@@ -223,7 +226,14 @@
       "fat": "Grassi",
       "back": "Indietro",
       "total": "Totale"
-    }
+    },
+    "copyYesterday": "Copia da ieri",
+    "copyYesterdayHint": "Copia tutti i pasti del giorno precedente",
+    "copiedFromYesterday": "Copiato da ieri",
+    "nothingToCopy": "Nessun pasto registrato ieri da copiare",
+    "itemCopied": "elemento copiato",
+    "itemsCopied": "elementi copiati",
+    "failedToCopy": "Impossibile copiare i pasti"
   },
   "settings": {
     "title": "Impostazioni",
@@ -276,7 +286,11 @@
     "invalidCode": "Codice non valido",
     "invalidCodeDesc": "Questo codice promozionale non è valido. Controlla e riprova.",
     "premiumFree": "Premium GRATUITO con il tuo codice!",
-    "premiumFreeDesc": "Il tuo codice sconto sblocca l'accesso premium al lancio"
+    "premiumFreeDesc": "Il tuo codice sconto sblocca l'accesso premium al lancio",
+    "exportData": "Esporta i tuoi dati",
+    "exportDataDesc": "Scarica il diario alimentare e lo storico del peso in formato CSV.",
+    "exportMeals": "Esporta pasti (CSV)",
+    "exportWeight": "Esporta peso (CSV)"
   },
   "progress": {
     "title": "Progressi",

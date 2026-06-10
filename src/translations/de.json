@@ -156,7 +156,10 @@
     "targetLabel": "Ziel",
     "waterIntake": "Wasseraufnahme",
     "waterRemaining": "L verbleibend",
-    "waterGoalReached": "Tagesziel erreicht!"
+    "waterGoalReached": "Tagesziel erreicht!",
+    "streakDay": "Tag in Folge",
+    "streakDays": "Tage in Folge",
+    "streakTooltip": "Aufeinanderfolgende Tage mit erfassten Mahlzeiten"
   },
   "diary": {
     "title": "Ernährungstagebuch",
@@ -223,7 +226,14 @@
       "fat": "Fett",
       "back": "Zurück",
       "total": "Gesamt"
-    }
+    },
+    "copyYesterday": "Von gestern kopieren",
+    "copyYesterdayHint": "Alle Mahlzeiten vom Vortag kopieren",
+    "copiedFromYesterday": "Von gestern kopiert",
+    "nothingToCopy": "Gestern wurde nichts erfasst",
+    "itemCopied": "Eintrag kopiert",
+    "itemsCopied": "Einträge kopiert",
+    "failedToCopy": "Kopieren fehlgeschlagen"
   },
   "settings": {
     "title": "Einstellungen",
@@ -276,7 +286,11 @@
     "invalidCode": "Ungültiger Code",
     "invalidCodeDesc": "Dieser Aktionscode ist ungültig. Bitte prüfen und erneut versuchen.",
     "premiumFree": "Premium KOSTENLOS mit deinem Code!",
-    "premiumFreeDesc": "Dein Rabattcode schaltet Premium beim Launch frei"
+    "premiumFreeDesc": "Dein Rabattcode schaltet Premium beim Launch frei",
+    "exportData": "Daten exportieren",
+    "exportDataDesc": "Lade dein Ernährungstagebuch und deinen Gewichtsverlauf als CSV herunter.",
+    "exportMeals": "Mahlzeiten exportieren (CSV)",
+    "exportWeight": "Gewicht exportieren (CSV)"
   },
   "progress": {
     "title": "Fortschritt",

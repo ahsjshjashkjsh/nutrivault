@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Camera, ChevronLeft, ChevronRight, Crown, Droplets, Plus, Sparkles } from "lucide-react";
+import { Camera, ChevronLeft, ChevronRight, Copy, Crown, Droplets, Loader2, Plus, Sparkles } from "lucide-react";
 import type { Goal, MealEntry, Food } from "@prisma/client";
 import { MealSection } from "./meal-section";
 import { FoodSearchModal } from "./food-search-modal";
@@ -50,6 +50,7 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
     open: boolean;
     mealType: MealType;
   }>({ open: false, mealType: "LUNCH" });
+  const [copying, setCopying] = useState(false);
 
   const calorieTarget = goal?.dailyCalories || 2000;
   const proteinTarget = goal?.proteinGrams || 150;
@@ -195,6 +196,55 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
     }
   };
 
+  const handleCopyYesterday = async () => {
+    setCopying(true);
+    try {
+      const res = await fetch("/api/diary/copy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date }),
+      });
+
+      if (res.status === 404) {
+        toast({ title: t("diary.nothingToCopy"), variant: "destructive" });
+        return;
+      }
+      if (!res.ok) throw new Error();
+
+      const { entries } = (await res.json()) as { entries: MealEntryWithFood[] };
+
+      setMealData((prev) => {
+        const next = { ...prev };
+        for (const entry of entries) {
+          const type = entry.mealType as MealType;
+          next[type] = [...next[type], entry];
+        }
+        return next;
+      });
+
+      setCurrentTotals((prev) =>
+        entries.reduce(
+          (acc, e) => ({
+            calories: acc.calories + e.calories,
+            proteinG: acc.proteinG + e.proteinG,
+            carbsG: acc.carbsG + e.carbsG,
+            fatG: acc.fatG + e.fatG,
+          }),
+          prev
+        )
+      );
+
+      toast({
+        title: t("diary.copiedFromYesterday"),
+        description: `${entries.length} ${entries.length === 1 ? t("diary.itemCopied") : t("diary.itemsCopied")}`,
+      });
+    } catch {
+      toast({ title: t("diary.failedToCopy"), variant: "destructive" });
+    } finally {
+      setCopying(false);
+    }
+  };
+
   const handleWaterAdd = async (amountMl: number) => {
     try {
       const res = await fetch("/api/water", {
@@ -225,6 +275,16 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
           <p className="text-sm text-muted-foreground mt-1">{displayDate}</p>
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopyYesterday}
+            disabled={copying}
+            title={t("diary.copyYesterdayHint")}
+          >
+            {copying ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Copy className="w-3.5 h-3.5" />}
+            <span className="hidden sm:inline">{t("diary.copyYesterday")}</span>
+          </Button>
           <Button
             variant="outline"
             size="icon-sm"

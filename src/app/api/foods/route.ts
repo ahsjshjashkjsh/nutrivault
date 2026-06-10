@@ -53,8 +53,8 @@ export async function GET(request: NextRequest) {
           },
           {
             OR: [
-              { name: { contains: query } },
-              { brand: { contains: query } },
+              { name: { contains: query, mode: "insensitive" } },
+              { brand: { contains: query, mode: "insensitive" } },
             ],
           },
         ],
