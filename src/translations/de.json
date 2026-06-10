@@ -159,7 +159,8 @@
     "waterGoalReached": "Tagesziel erreicht!",
     "streakDay": "Tag in Folge",
     "streakDays": "Tage in Folge",
-    "streakTooltip": "Aufeinanderfolgende Tage mit erfassten Mahlzeiten"
+    "streakTooltip": "Aufeinanderfolgende Tage mit erfassten Mahlzeiten",
+    "todayOverview": "Heutige Übersicht"
   },
   "diary": {
     "title": "Ernährungstagebuch",

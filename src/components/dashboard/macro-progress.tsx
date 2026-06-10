@@ -25,9 +25,9 @@ export function MacroProgress({ label, consumed, target, color, unit }: MacroPro
           <span className="text-muted-foreground text-xs">/ {target}{unit}</span>
         </div>
       </div>
-      <div className="relative h-2 bg-muted rounded-full overflow-hidden">
+      <div className="relative h-2.5 bg-muted/80 rounded-full overflow-hidden ring-1 ring-border/50">
         <div
-          className={cn("h-full rounded-full transition-all duration-700 ease-out", color)}
+          className={cn("macro-fill h-full rounded-full transition-all duration-700 ease-out", color)}
           style={{ width: `${pct}%` }}
         />
       </div>

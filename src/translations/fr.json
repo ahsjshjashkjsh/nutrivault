@@ -159,7 +159,8 @@
     "waterGoalReached": "Objectif quotidien atteint !",
     "streakDay": "jour d'affilée",
     "streakDays": "jours d'affilée",
-    "streakTooltip": "Jours consécutifs avec des repas enregistrés"
+    "streakTooltip": "Jours consécutifs avec des repas enregistrés",
+    "todayOverview": "Aperçu du jour"
   },
   "diary": {
     "title": "Journal alimentaire",

@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import {
   BarChart2,
   BookOpen,
+  ChevronRight,
   LayoutDashboard,
   Leaf,
   LogOut,
@@ -29,17 +30,23 @@ export function Sidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-64 flex-col border-r border-border bg-card/50 backdrop-blur-sm z-40">
+      <aside className="app-sidebar hidden lg:flex fixed left-0 top-0 h-screen w-72 flex-col z-40">
         {/* Logo */}
-        <div className="flex items-center gap-2.5 px-6 py-5 border-b border-border">
-          <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
-            <Leaf className="w-4 h-4 text-white" />
+        <div className="flex items-center gap-3 px-5 py-5">
+          <div className="brand-mark w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center flex-shrink-0">
+            <Leaf className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-lg">{APP_NAME}</span>
+          <div>
+            <span className="font-display font-bold text-lg tracking-tight">{APP_NAME}</span>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Nutrition OS</p>
+          </div>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-4 py-6 space-y-1.5">
+          <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
+            Workspace
+          </p>
           {navItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
@@ -51,15 +58,27 @@ export function Sidebar() {
                   isActive ? "nav-item-active" : "nav-item-inactive"
                 )}
               >
-                <item.icon className="w-4 h-4 flex-shrink-0" />
-                {item.label}
+                <span className="nav-icon">
+                  <item.icon className="w-4 h-4 flex-shrink-0" />
+                </span>
+                <span className="flex-1">{item.label}</span>
+                <ChevronRight className="nav-arrow w-3.5 h-3.5" />
               </Link>
             );
           })}
         </nav>
 
         {/* Bottom */}
-        <div className="px-3 py-4 border-t border-border">
+        <div className="px-4 py-4">
+          <div className="mb-3 rounded-xl border border-brand-500/15 bg-brand-500/[0.06] p-3">
+            <div className="flex items-center gap-2 text-xs font-semibold text-brand-600 dark:text-brand-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
+              Daily tracking active
+            </div>
+            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+              Small entries build a clearer health picture.
+            </p>
+          </div>
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
             className="nav-item nav-item-inactive w-full text-left text-destructive hover:text-destructive hover:bg-destructive/10"
@@ -71,7 +90,7 @@ export function Sidebar() {
       </aside>
 
       {/* Mobile Bottom Nav */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-sm border-t border-border">
+      <nav className="app-mobile-nav lg:hidden fixed bottom-3 left-3 right-3 z-40">
         <div className="flex items-center justify-around px-2 py-2">
           {navItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
@@ -80,9 +99,9 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg transition-colors",
+                  "relative flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg transition-all duration-300",
                   isActive
-                    ? "text-brand-600 dark:text-brand-400"
+                    ? "text-brand-600 dark:text-brand-400 bg-brand-500/10"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >

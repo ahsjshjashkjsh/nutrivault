@@ -11,7 +11,7 @@ interface StatCardProps {
 
 export function StatCard({ label, value, subtext, icon, color, bgColor }: StatCardProps) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4 hover:border-border/80 transition-colors">
+    <div className="app-stat-card rounded-xl border border-border bg-card p-4">
       <div className="flex items-start justify-between mb-3">
         <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", bgColor, color)}>
           {icon}

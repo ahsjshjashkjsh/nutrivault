@@ -159,7 +159,8 @@
     "waterGoalReached": "Daily goal reached!",
     "streakDay": "day streak",
     "streakDays": "day streak",
-    "streakTooltip": "Consecutive days with logged meals"
+    "streakTooltip": "Consecutive days with logged meals",
+    "todayOverview": "Today overview"
   },
   "diary": {
     "title": "Food Diary",

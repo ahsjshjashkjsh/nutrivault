@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import { ArrowRight, Droplets, Flame, Scale, Utensils } from "lucide-react";
+import { ArrowRight, Droplets, Flame, Plus, Scale, Sparkles, Utensils } from "lucide-react";
 import type { Goal, MealEntry, Food, WeightEntry, Profile, User } from "@prisma/client";
 import { CalorieRing } from "./calorie-ring";
 import { MacroProgress } from "./macro-progress";
@@ -98,10 +98,16 @@ export function DashboardClient({
   return (
     <div className="space-y-6 pb-20 lg:pb-0 stagger">
       {/* Welcome */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <div>
+      <section className="dashboard-welcome relative overflow-hidden rounded-2xl border border-brand-500/15 p-5 sm:p-7">
+        <div className="welcome-orb" />
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-300">
+              <Sparkles className="h-3 w-3" />
+              {t("dashboard.todayOverview")}
+            </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
               {greeting}, {user?.name?.split(" ")[0] || "there"}
             </h1>
             {streakDays > 0 && (
@@ -114,20 +120,24 @@ export function DashboardClient({
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground mt-1">{displayDate}</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            {displayDate} · <span className="font-semibold text-foreground">{formatCalories(remaining)} kcal</span> {t("dashboard.remaining").toLowerCase()}
+          </p>
+          </div>
+          <Button asChild size="lg" className="group shadow-lg shadow-brand-500/15">
+            <Link href="/diary">
+              <Plus className="w-4 h-4 transition-transform duration-300 group-hover:rotate-90" />
+              {t("dashboard.logMeal")}
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
         </div>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/diary">
-            <Utensils className="w-3.5 h-3.5" />
-            {t("dashboard.logMeal")}
-          </Link>
-        </Button>
-      </div>
+      </section>
 
       {/* Calorie Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calorie Ring */}
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-1 overflow-hidden">
           <CardContent className="p-6 flex flex-col items-center">
             <CalorieRing
               consumed={dailyTotals.calories}

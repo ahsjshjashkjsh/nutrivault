@@ -159,7 +159,8 @@
     "waterGoalReached": "Obiettivo giornaliero raggiunto!",
     "streakDay": "giorno di fila",
     "streakDays": "giorni di fila",
-    "streakTooltip": "Giorni consecutivi con pasti registrati"
+    "streakTooltip": "Giorni consecutivi con pasti registrati",
+    "todayOverview": "Panoramica di oggi"
   },
   "diary": {
     "title": "Diario alimentare",

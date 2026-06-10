@@ -29,9 +29,9 @@ export function WaterWidget({ current, target, onAdd }: WaterWidgetProps) {
       <CardContent className="space-y-4">
         {/* Wave-style progress */}
         <div className="relative flex flex-col items-center">
-          <div className="relative w-24 h-24 rounded-full border-4 border-blue-500/20 bg-blue-500/5 flex items-center justify-center overflow-hidden">
+          <div className="water-vessel relative w-28 h-28 rounded-full border-4 border-blue-500/20 bg-blue-500/5 flex items-center justify-center overflow-hidden">
             <div
-              className="absolute bottom-0 left-0 right-0 bg-blue-500/30 transition-all duration-700"
+              className="water-level absolute bottom-0 left-0 right-0 bg-blue-500/30 transition-all duration-700"
               style={{ height: `${pct}%` }}
             />
             <div className="relative text-center z-10">

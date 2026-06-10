@@ -27,9 +27,11 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="dashboard-shell min-h-screen bg-background flex">
+      <div className="app-ambient app-ambient-one" />
+      <div className="app-ambient app-ambient-two" />
       <Sidebar />
-      <div className="flex-1 flex flex-col min-h-screen lg:ml-64">
+      <div className="relative z-10 flex-1 flex flex-col min-h-screen lg:ml-72">
         <DashboardHeader user={session.user} />
         <main className="flex-1 overflow-auto">
           <div className="page-container">{children}</div>
