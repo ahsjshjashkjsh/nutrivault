@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { weightEntrySchema } from "@/lib/validations";
+import { dayUTC } from "@/lib/dates";
 
 export async function GET(request: NextRequest) {
   try {
@@ -45,8 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { weightKg, date, notes } = parsed.data;
-    const entryDate = new Date(date);
-    entryDate.setHours(0, 0, 0, 0);
+    const entryDate = dayUTC(date);
 
     const entry = await prisma.weightEntry.upsert({
       where: {
@@ -64,10 +64,11 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Update profile's current weight
-    await prisma.profile.update({
+    // Update profile's current weight (upsert: profile may not exist yet)
+    await prisma.profile.upsert({
       where: { userId: session.user.id },
-      data: { currentWeightKg: weightKg },
+      update: { currentWeightKg: weightKg },
+      create: { userId: session.user.id, currentWeightKg: weightKg },
     });
 
     return NextResponse.json({ entry }, { status: 201 });

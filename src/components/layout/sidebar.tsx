@@ -90,7 +90,7 @@ export function Sidebar() {
       </aside>
 
       {/* Mobile Bottom Nav */}
-      <nav className="app-mobile-nav lg:hidden fixed bottom-3 left-3 right-3 z-40">
+      <nav className="app-mobile-nav lg:hidden fixed left-3 right-3 z-40">
         <div className="flex items-center justify-around px-2 py-2">
           {navItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
@@ -99,14 +99,14 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg transition-all duration-300",
+                  "relative flex min-w-0 flex-1 flex-col items-center gap-1 px-1 py-1.5 rounded-lg transition-all duration-300 active:scale-95",
                   isActive
                     ? "text-brand-600 dark:text-brand-400 bg-brand-500/10"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="text-[10px] font-medium">{item.label.split(" ")[0]}</span>
+                <span className="max-w-full truncate text-[10px] font-medium">{item.label.split(" ")[0]}</span>
               </Link>
             );
           })}

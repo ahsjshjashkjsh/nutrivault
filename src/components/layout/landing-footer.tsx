@@ -14,13 +14,13 @@ export function LandingFooter() {
             <span className="font-bold">{APP_NAME}</span>
           </Link>
 
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="hover:text-foreground cursor-pointer transition-colors">Privacy</span>
             <span className="hover:text-foreground cursor-pointer transition-colors">Terms</span>
             <span className="hover:text-foreground cursor-pointer transition-colors">Support</span>
           </div>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
           </p>
         </div>

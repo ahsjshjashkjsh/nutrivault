@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { waterLogSchema } from "@/lib/validations";
+import { dayUTC } from "@/lib/dates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,8 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { amountMl, date } = parsed.data;
-    const logDate = new Date(date);
-    logDate.setHours(0, 0, 0, 0);
+    const logDate = dayUTC(date);
 
     const log = await prisma.waterLog.create({
       data: {

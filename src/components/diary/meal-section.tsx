@@ -48,7 +48,7 @@ export function MealSection({ mealType, entries, onAddFood, onAddNlp, onDeleteEn
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+      <div className="flex items-center justify-between px-3.5 sm:px-5 py-4 border-b border-border">
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="flex items-center gap-3 flex-1 text-left hover:opacity-80 transition-opacity"
@@ -109,7 +109,7 @@ export function MealSection({ mealType, entries, onAddFood, onAddNlp, onDeleteEn
                 {entries.map((entry) => (
                   <div
                     key={entry.id}
-                    className="flex items-center gap-3 px-5 py-3 hover:bg-secondary/50 group transition-colors"
+                    className="flex items-center gap-2 sm:gap-3 px-3.5 sm:px-5 py-3 hover:bg-secondary/50 group transition-colors"
                   >
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{entry.food.name}</p>
@@ -131,7 +131,7 @@ export function MealSection({ mealType, entries, onAddFood, onAddNlp, onDeleteEn
                       </span>
                       <button
                         onClick={() => onDeleteEntry(entry.id)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive p-1"
+                        className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive p-1.5"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -141,12 +141,12 @@ export function MealSection({ mealType, entries, onAddFood, onAddNlp, onDeleteEn
               </div>
 
               {/* Meal total */}
-              <div className="flex items-center justify-between px-5 py-3 bg-muted/20 border-t border-border/50">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between px-3.5 sm:px-5 py-3 bg-muted/20 border-t border-border/50">
                 <span className="text-xs text-muted-foreground font-medium">
                   {t("diary.mealTotal")}
                 </span>
-                <div className="flex items-center gap-4 text-xs font-semibold">
-                  <span className="text-muted-foreground">
+                <div className="flex w-full items-center justify-between gap-3 text-xs font-semibold sm:w-auto sm:justify-start">
+                  <span className="text-muted-foreground truncate">
                     P: {Math.round(total.proteinG)}g · C: {Math.round(total.carbsG)}g · F: {Math.round(total.fatG)}g
                   </span>
                   <span>{formatCalories(total.calories)} kcal</span>

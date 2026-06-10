@@ -124,7 +124,7 @@ export function NutritionAssistant({ defaultOpen = false }: NutritionAssistantPr
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-50 w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center glow-green"
+          className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-4 lg:bottom-6 lg:right-6 z-50 w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center glow-green active:scale-95"
           aria-label={t("chat.button")}
           title={t("chat.button")}
         >
@@ -134,7 +134,7 @@ export function NutritionAssistant({ defaultOpen = false }: NutritionAssistantPr
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm h-[520px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in">
+        <div className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-3 sm:right-4 lg:bottom-6 lg:right-6 z-50 w-[calc(100vw-1.5rem)] sm:w-[calc(100vw-2rem)] max-w-sm h-[min(520px,calc(100dvh-7rem-env(safe-area-inset-bottom)))] bg-card border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
             <div className="flex items-center gap-2.5">

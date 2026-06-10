@@ -313,7 +313,7 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
 
       {/* Daily Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <Card className="lg:col-span-1 flex flex-col items-center justify-center p-6">
+        <Card className="lg:col-span-1 flex flex-col items-center justify-center p-4 sm:p-6">
           <CalorieRing
             consumed={currentTotals.calories}
             target={calorieTarget}
@@ -335,16 +335,16 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
           </div>
         </Card>
 
-        <Card className="lg:col-span-3 p-6 space-y-5">
+        <Card className="lg:col-span-3 p-4 sm:p-6 space-y-5">
           <MacroProgress label={t("diary.protein")} consumed={currentTotals.proteinG} target={proteinTarget} color="bg-brand-500" unit="g" />
           <MacroProgress label={t("diary.carbohydrates")} consumed={currentTotals.carbsG} target={carbsTarget} color="bg-blue-500" unit="g" />
           <MacroProgress label={t("diary.fat")} consumed={currentTotals.fatG} target={fatTarget} color="bg-yellow-500" unit="g" />
-          <div className="flex items-center justify-between pt-2 border-t border-border">
+          <div className="flex flex-col gap-3 min-[460px]:flex-row min-[460px]:items-center min-[460px]:justify-between pt-2 border-t border-border">
             <div className="flex items-center gap-2 text-sm text-blue-500">
               <Droplets className="w-4 h-4" />
               <span>{(waterMl / 1000).toFixed(1)}L / {(waterTarget / 1000).toFixed(1)}L water</span>
             </div>
-            <div className="flex gap-1">
+            <div className="grid grid-cols-3 gap-1">
               {WATER_QUICK_ADD.slice(0, 3).map((ml) => (
                 <Button key={ml} variant="muted" size="sm" className="text-xs h-7 px-2" onClick={() => handleWaterAdd(ml)}>
                   +{ml}ml

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { subDays } from "date-fns";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { dayUTC, subDaysUTC } from "@/lib/dates";
 import { z } from "zod";
 
 const copySchema = z.object({
-  date: z.string().min(1, "Date is required"),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in yyyy-MM-dd format"),
   mealType: z.enum(["BREAKFAST", "LUNCH", "DINNER", "SNACK"]).optional(),
 });
 
@@ -30,9 +30,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const targetDate = new Date(parsed.data.date);
-    targetDate.setHours(0, 0, 0, 0);
-    const sourceDate = subDays(targetDate, 1);
+    const targetDate = dayUTC(parsed.data.date);
+    const sourceDate = subDaysUTC(targetDate, 1);
 
     const sourceEntries = await prisma.mealEntry.findMany({
       where: {

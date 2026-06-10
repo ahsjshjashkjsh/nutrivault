@@ -1,4 +1,4 @@
-import { format, subDays } from "date-fns";
+import { dateKey, subDaysUTC } from "@/lib/dates";
 
 /**
  * Compute the current logging streak (consecutive days with at least one meal
@@ -6,20 +6,20 @@ import { format, subDays } from "date-fns";
  * until the end of the day, counting back from yesterday.
  *
  * @param loggedDates set of "yyyy-MM-dd" strings on which the user logged meals
- * @param today       reference date
+ * @param today       reference date (UTC midnight)
  */
 export function computeStreak(loggedDates: Set<string>, today: Date): number {
   let streak = 0;
   let cursor = today;
 
   // If nothing logged today yet, start counting from yesterday
-  if (!loggedDates.has(format(cursor, "yyyy-MM-dd"))) {
-    cursor = subDays(cursor, 1);
+  if (!loggedDates.has(dateKey(cursor))) {
+    cursor = subDaysUTC(cursor, 1);
   }
 
-  while (loggedDates.has(format(cursor, "yyyy-MM-dd"))) {
+  while (loggedDates.has(dateKey(cursor))) {
     streak++;
-    cursor = subDays(cursor, 1);
+    cursor = subDaysUTC(cursor, 1);
   }
 
   return streak;

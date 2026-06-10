@@ -307,7 +307,7 @@ export function FoodSearchModal({
               {selected.brand && (
                 <p className="text-sm text-muted-foreground">{selected.brand}</p>
               )}
-              <div className="grid grid-cols-4 gap-2 mt-3 text-center">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-center">
                 {[
                   { label: t("diary.caloriesLabel"), value: `${previewCalories} kcal`, accent: true },
                   { label: t("diary.protein"), value: `${Math.round(selected.proteinG * (parseFloat(servings)||1) * (parseFloat(servingSize)||selected.servingSize) / selected.servingSize)}g` },
@@ -324,7 +324,7 @@ export function FoodSearchModal({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 min-[390px]:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label>{t("diary.servings")}</Label>
                 <Input
@@ -367,8 +367,8 @@ export function FoodSearchModal({
         {/* ── CREATE FOOD VIEW ── */}
         {view === "create" && (
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2 space-y-1.5">
+            <div className="grid grid-cols-1 min-[390px]:grid-cols-2 gap-4">
+              <div className="min-[390px]:col-span-2 space-y-1.5">
                 <Label>{t("diary.foodNameLabel")} *</Label>
                 <Input
                   autoFocus
@@ -377,7 +377,7 @@ export function FoodSearchModal({
                   onChange={cf("name")}
                 />
               </div>
-              <div className="col-span-2 space-y-1.5">
+              <div className="min-[390px]:col-span-2 space-y-1.5">
                 <Label>{t("diary.brandLabel")}</Label>
                 <Input
                   placeholder="Nestlé, Barilla..."

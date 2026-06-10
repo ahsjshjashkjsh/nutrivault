@@ -235,7 +235,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
 
                 <div className="space-y-1.5">
                   <Label>{t("settings.gender")}</Label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 min-[390px]:grid-cols-3 gap-2 sm:gap-3">
                     {GENDER_OPTIONS.map((opt) => (
                       <button
                         key={opt.value}
@@ -341,7 +341,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
 
                 <div className="space-y-2">
                   <Label>{t("settings.goalType")}</Label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 min-[390px]:grid-cols-2 gap-3">
                     {GOAL_TYPES.map((goal) => (
                       <button
                         key={goal.value}

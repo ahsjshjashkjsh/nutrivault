@@ -151,7 +151,7 @@ export function OnboardingClient({ userName }: OnboardingClientProps) {
       : null;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
+    <div className="auth-shell min-h-screen bg-background flex flex-col items-center justify-center px-4 py-8 sm:py-12">
       {/* Logo */}
       <div className="flex items-center gap-2 mb-10">
         <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
@@ -204,7 +204,7 @@ export function OnboardingClient({ userName }: OnboardingClientProps) {
 
                 <div className="space-y-1.5">
                   <Label>{t("settings.gender")}</Label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 min-[390px]:grid-cols-3 gap-2 sm:gap-3">
                     {GENDER_OPTIONS.map((opt) => (
                       <button
                         key={opt.value}
@@ -321,7 +321,7 @@ export function OnboardingClient({ userName }: OnboardingClientProps) {
 
                 <div className="space-y-2">
                   <Label>{t("onboarding.goalType")}</Label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 min-[390px]:grid-cols-2 gap-3">
                     {GOAL_TYPES.map((goal) => (
                       <button
                         key={goal.value}
@@ -376,7 +376,7 @@ export function OnboardingClient({ userName }: OnboardingClientProps) {
                         <p className="text-sm text-muted-foreground">{t("onboarding.kcalPerDay")}</p>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-4 pt-4 border-t border-brand-500/20">
+                      <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 border-t border-brand-500/20">
                         {[
                           { labelKey: "settings.protein", value: `${displayTargets.proteinG}g`, color: "text-brand-600 dark:text-brand-400" },
                           { labelKey: "settings.carbs", value: `${displayTargets.carbsG}g`, color: "text-blue-400" },

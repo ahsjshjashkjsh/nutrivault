@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { mealEntrySchema } from "@/lib/validations";
+import { dayUTC } from "@/lib/dates";
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,12 +15,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const dateStr = searchParams.get("date");
 
-    if (!dateStr) {
-      return NextResponse.json({ error: "Date is required" }, { status: 400 });
+    if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+      return NextResponse.json({ error: "Date is required (yyyy-MM-dd)" }, { status: 400 });
     }
 
-    const date = new Date(dateStr);
-    date.setHours(0, 0, 0, 0);
+    const date = dayUTC(dateStr);
 
     const entries = await prisma.mealEntry.findMany({
       where: {
@@ -96,8 +96,7 @@ export async function POST(request: NextRequest) {
     const carbsG = food.carbsG * multiplier;
     const fatG = food.fatG * multiplier;
 
-    const entryDate = new Date(date);
-    entryDate.setHours(0, 0, 0, 0);
+    const entryDate = dayUTC(date);
 
     const entry = await prisma.mealEntry.create({
       data: {

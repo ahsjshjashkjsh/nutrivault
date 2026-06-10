@@ -89,7 +89,7 @@ export default function LandingPage() {
       <LandingNav />
 
       {/* Hero */}
-      <section className="relative pt-24 pb-20 sm:pt-32 sm:pb-28 overflow-hidden grain hero-mesh">
+      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-28 overflow-hidden grain hero-mesh">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-40 right-10 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
         </div>
@@ -100,24 +100,24 @@ export default function LandingPage() {
             {t("hero.badge")}
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-balance">
+          <h1 className="text-[clamp(2.65rem,12vw,4.5rem)] leading-[0.98] font-bold tracking-[-0.05em] mb-6 text-balance">
             {t("hero.heading1")}{" "}
             <span className="gradient-text">{t("hero.heading2")}</span>{" "}
             <br className="hidden sm:block" />
             {t("hero.heading3")}
           </h1>
 
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
             {t("hero.subheading")}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild size="lg" className="px-8 py-6 text-base font-semibold animate-pulse-glow">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
+            <Button asChild size="lg" className="w-full sm:w-auto px-8 py-6 text-base font-semibold animate-pulse-glow">
               <Link href="/register">
                 {t("hero.startFree")} <ChevronRight className="ml-1 w-4 h-4" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="px-8 py-6 text-base">
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto px-8 py-6 text-base">
               <Link href="/login">{t("hero.signIn")}</Link>
             </Button>
           </div>
@@ -128,28 +128,28 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard Preview */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 relative z-10 animate-fade-up [animation-delay:0.45s]">
-          <div className="relative rounded-2xl overflow-hidden border border-border bg-card shadow-2xl animate-float">
+        <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 mt-12 sm:mt-20 relative z-10 animate-fade-up [animation-delay:0.45s]">
+          <div className="relative rounded-[1.35rem] overflow-hidden border border-border bg-card shadow-2xl sm:animate-float">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80 z-10 pointer-events-none" />
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">{t("hero.dailyTarget")}</p>
-                  <p className="text-3xl font-bold text-foreground">2,100 <span className="text-sm font-normal text-muted-foreground">kcal</span></p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">2,100 <span className="text-xs sm:text-sm font-normal text-muted-foreground">kcal</span></p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-muted-foreground">{t("hero.remaining")}</p>
-                  <p className="text-3xl font-bold text-brand-600 dark:text-brand-400">843</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-brand-600 dark:text-brand-400">843</p>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 {[
                   { labelKey: "hero.protein", value: "142g", target: "175g", color: "bg-brand-500", pct: 81 },
                   { labelKey: "hero.carbs", value: "198g", target: "245g", color: "bg-blue-500", pct: 80 },
                   { labelKey: "hero.fat", value: "48g", target: "70g", color: "bg-yellow-500", pct: 69 },
                 ].map((m) => (
-                  <div key={m.labelKey} className="bg-muted/30 rounded-xl p-4">
-                    <div className="flex justify-between items-baseline mb-2">
+                  <div key={m.labelKey} className="bg-muted/30 rounded-xl p-2.5 sm:p-4">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
                       <span className="text-xs text-muted-foreground">{t(m.labelKey)}</span>
                       <span className="text-sm font-semibold text-foreground">{m.value}</span>
                     </div>
@@ -160,7 +160,7 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-4 gap-3 pt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-2">
                 {[
                   { key: "hero.breakfast", kcal: 412 },
                   { key: "hero.lunch", kcal: 587 },
@@ -192,7 +192,7 @@ export default function LandingPage() {
             {features.map((feature) => (
               <div
                 key={feature.titleKey}
-                className="p-6 rounded-2xl bg-card border border-border hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-16px_hsl(160_30%_4%/0.3)] group"
+                className="reveal-section p-5 sm:p-6 rounded-2xl bg-card border border-border hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-16px_hsl(160_30%_4%/0.3)] group"
               >
                 <div className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}>
                   <feature.icon className={`w-6 h-6 ${feature.color}`} />
@@ -266,7 +266,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="p-8 rounded-2xl border border-brand-500/30 bg-brand-500/5">
+          <div className="p-5 sm:p-8 rounded-2xl border border-brand-500/30 bg-brand-500/5">
             <p className="text-sm font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider mb-6">
               {t("free.whatsIncluded")}
             </p>

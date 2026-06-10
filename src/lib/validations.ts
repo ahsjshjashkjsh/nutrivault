@@ -68,10 +68,14 @@ export const profileUpdateSchema = z.object({
 
 // ─── Meal Entry ───────────────────────────────────────────────────────────────
 
+const dateString = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in yyyy-MM-dd format");
+
 export const mealEntrySchema = z.object({
   foodId: z.string().min(1, "Food is required"),
   mealType: z.enum(["BREAKFAST", "LUNCH", "DINNER", "SNACK"]),
-  date: z.string().min(1, "Date is required"),
+  date: dateString,
   servings: z.coerce.number().min(0.1, "Servings must be greater than 0").max(100),
   servingSize: z.coerce.number().min(0.1, "Serving size must be greater than 0"),
   servingUnit: z.string().min(1, "Serving unit is required"),
@@ -104,7 +108,7 @@ export const weightEntrySchema = z.object({
     .number()
     .min(20, "Weight must be at least 20 kg")
     .max(500, "Please enter a valid weight"),
-  date: z.string().min(1, "Date is required"),
+  date: dateString,
   notes: z.string().max(500).optional(),
 });
 
@@ -115,7 +119,7 @@ export const waterLogSchema = z.object({
     .number()
     .min(50, "Amount must be at least 50 ml")
     .max(5000, "Please enter a valid amount"),
-  date: z.string().min(1, "Date is required"),
+  date: dateString,
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;

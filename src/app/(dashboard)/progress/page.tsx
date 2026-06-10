@@ -2,15 +2,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProgressClient } from "@/components/progress/progress-client";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
+import { dayUTC, dateKey, subDaysUTC, todayKey } from "@/lib/dates";
 
 export default async function ProgressPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) return null;
 
   const userId = session.user.id;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const today = dayUTC(todayKey());
 
   const [weightEntries, goal, profile, last30Days] = await Promise.all([
     prisma.weightEntry.findMany({
@@ -25,14 +25,13 @@ export default async function ProgressPage() {
     prisma.profile.findUnique({ where: { userId } }),
     Promise.all(
       Array.from({ length: 30 }, (_, i) => {
-        const d = subDays(today, 29 - i);
-        d.setHours(0, 0, 0, 0);
+        const d = subDaysUTC(today, 29 - i);
         return prisma.mealEntry.aggregate({
           where: { userId, date: d },
           _sum: { calories: true, proteinG: true, carbsG: true, fatG: true },
         }).then((agg) => ({
-          date: format(d, "yyyy-MM-dd"),
-          day: format(d, "MMM d"),
+          date: dateKey(d),
+          day: format(dayUTC(dateKey(d)), "MMM d"),
           calories: Math.round(agg._sum.calories || 0),
           proteinG: Math.round(agg._sum.proteinG || 0),
           carbsG: Math.round(agg._sum.carbsG || 0),
@@ -43,7 +42,7 @@ export default async function ProgressPage() {
     ),
   ]);
 
-  const todayStr = format(today, "yyyy-MM-dd");
+  const todayStr = dateKey(today);
 
   return (
     <ProgressClient

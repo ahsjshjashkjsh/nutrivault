@@ -92,7 +92,7 @@ export function ProgressClient({
       </div>
 
       {/* Stats overview */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 min-[390px]:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-5">
           <div className="flex items-start justify-between mb-3">
             <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
@@ -183,7 +183,7 @@ export function ProgressClient({
         <div className="lg:col-span-2 space-y-6">
           <Tabs defaultValue="weight">
             <Card>
-              <CardHeader className="pb-4 flex-row items-center justify-between">
+              <CardHeader className="pb-4 gap-3 min-[460px]:flex-row min-[460px]:items-center min-[460px]:justify-between">
                 <CardTitle>{t("progress.trends")}</CardTitle>
                 <TabsList>
                   <TabsTrigger value="weight">{t("progress.weightTab")}</TabsTrigger>
@@ -222,7 +222,7 @@ export function ProgressClient({
                       year: "numeric",
                     });
                     return (
-                      <div key={entry.id} className="flex items-center justify-between px-6 py-3">
+                      <div key={entry.id} className="flex items-center justify-between px-4 sm:px-6 py-3">
                         <div>
                           <p className="text-sm font-medium">{dateStr}</p>
                           {entry.notes && (

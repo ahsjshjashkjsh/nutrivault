@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { onboardingSchema } from "@/lib/validations";
 import { calculateCalorieTargetsWithAI } from "@/lib/calorie-ai";
+import { dayUTC, todayKey } from "@/lib/dates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -78,8 +79,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Log initial weight
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today = dayUTC(todayKey());
 
     await prisma.weightEntry.upsert({
       where: {

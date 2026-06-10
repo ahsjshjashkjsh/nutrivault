@@ -167,7 +167,7 @@ async function findOrCreateFood(
   const existing = await prisma.food.findFirst({
     where: {
       OR: [{ isPublic: true }, { createdBy: userId }],
-      name: { equals: food.name },
+      name: { equals: food.name, mode: "insensitive" },
     },
     orderBy: { createdAt: "asc" },
   });
@@ -265,7 +265,7 @@ async function analyzeMealLocal(
     const dbFood = await prisma.food.findFirst({
       where: {
         OR: [{ isPublic: true }, { createdBy: userId }],
-        name: { contains: item.name },
+        name: { contains: item.name, mode: "insensitive" },
       },
     });
 

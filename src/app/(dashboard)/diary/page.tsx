@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { DiaryClient } from "@/components/diary/diary-client";
-import { format } from "date-fns";
+import { dayUTC, todayKey } from "@/lib/dates";
 
 export default async function DiaryPage({
   searchParams,
@@ -13,11 +13,10 @@ export default async function DiaryPage({
   if (!session?.user?.id) return null;
 
   const params = await searchParams;
-  const today = format(new Date(), "yyyy-MM-dd");
-  const dateStr = params.date || today;
+  const today = todayKey();
+  const dateStr = /^\d{4}-\d{2}-\d{2}$/.test(params.date || "") ? params.date! : today;
 
-  const date = new Date(dateStr);
-  date.setHours(0, 0, 0, 0);
+  const date = dayUTC(dateStr);
 
   const [entries, goal, waterLogs, userRecord] = await Promise.all([
     prisma.mealEntry.findMany({

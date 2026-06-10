@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { rateLimit } from "@/lib/rate-limit";
 
 interface VisionFood {
   name: string;
@@ -33,7 +34,7 @@ async function findOrCreateFood(
   const existing = await prisma.food.findFirst({
     where: {
       OR: [{ isPublic: true }, { createdBy: userId }],
-      name: { equals: food.name },
+      name: { equals: food.name, mode: "insensitive" },
     },
     orderBy: { createdAt: "asc" },
   });
@@ -78,6 +79,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: "Premium subscription required for photo meal analysis." },
         { status: 403 }
+      );
+    }
+
+    // Vision calls are the most expensive — cap per user
+    const limit = rateLimit(`photo-analysis:${session.user.id}`, 15, 60 * 60 * 1000);
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: "Too many photo analyses. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } }
       );
     }
 

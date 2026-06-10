@@ -28,7 +28,7 @@ export function RecentMeals({ entries }: RecentMealsProps) {
       {entries.map((entry) => (
         <div
           key={entry.id}
-          className="flex items-center justify-between px-6 py-3 hover:bg-secondary/50 transition-colors"
+          className="flex items-center justify-between px-4 sm:px-6 py-3 hover:bg-secondary/50 transition-colors"
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/20 flex items-center justify-center flex-shrink-0">
