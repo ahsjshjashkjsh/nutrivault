@@ -267,7 +267,7 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
   const isFuture = date > today;
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-0 animate-fade-in">
+    <div className="space-y-6 pb-20 lg:pb-0 stagger">
       {/* Date Navigator */}
       <div className="flex items-center justify-between">
         <div>

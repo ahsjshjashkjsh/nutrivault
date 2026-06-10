@@ -89,19 +89,18 @@ export default function LandingPage() {
       <LandingNav />
 
       {/* Hero */}
-      <section className="relative pt-24 pb-20 sm:pt-32 sm:pb-28 overflow-hidden">
+      <section className="relative pt-24 pb-20 sm:pt-32 sm:pb-28 overflow-hidden grain hero-mesh">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brand-500/5 rounded-full blur-3xl" />
           <div className="absolute top-40 right-10 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 stagger">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-medium mb-8">
             <Sparkles className="w-3.5 h-3.5" />
             {t("hero.badge")}
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-balance">
             {t("hero.heading1")}{" "}
             <span className="gradient-text">{t("hero.heading2")}</span>{" "}
             <br className="hidden sm:block" />
@@ -113,7 +112,7 @@ export default function LandingPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild size="lg" className="px-8 py-6 text-base font-semibold glow-green">
+            <Button asChild size="lg" className="px-8 py-6 text-base font-semibold animate-pulse-glow">
               <Link href="/register">
                 {t("hero.startFree")} <ChevronRight className="ml-1 w-4 h-4" />
               </Link>
@@ -129,8 +128,8 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard Preview */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-          <div className="relative rounded-2xl overflow-hidden border border-border bg-card shadow-2xl">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 relative z-10 animate-fade-up [animation-delay:0.45s]">
+          <div className="relative rounded-2xl overflow-hidden border border-border bg-card shadow-2xl animate-float">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80 z-10 pointer-events-none" />
             <div className="p-6 space-y-4">
               <div className="flex items-center justify-between">
@@ -193,9 +192,9 @@ export default function LandingPage() {
             {features.map((feature) => (
               <div
                 key={feature.titleKey}
-                className="p-6 rounded-2xl bg-card border border-border hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 group"
+                className="p-6 rounded-2xl bg-card border border-border hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-16px_hsl(160_30%_4%/0.3)] group"
               >
-                <div className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4`}>
+                <div className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}>
                   <feature.icon className={`w-6 h-6 ${feature.color}`} />
                 </div>
                 <h3 className="text-lg font-semibold mb-2 text-foreground">{t(feature.titleKey)}</h3>
@@ -249,8 +248,8 @@ export default function LandingPage() {
               { value: "4.9/5", labelKey: "stats.averageRating" },
             ].map((stat) => (
               <div key={stat.labelKey}>
-                <p className="text-3xl font-bold text-brand-600 dark:text-brand-400">{stat.value}</p>
-                <p className="text-sm text-muted-foreground mt-1">{t(stat.labelKey)}</p>
+                <p className="text-4xl font-bold font-display gradient-text tabular-nums">{stat.value}</p>
+                <p className="text-sm text-muted-foreground mt-2">{t(stat.labelKey)}</p>
               </div>
             ))}
           </div>

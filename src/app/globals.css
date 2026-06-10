@@ -3,61 +3,61 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light theme (default) */
+  /* Light theme (default) — warm paper white with green undertones */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --background: 80 20% 98%;
+    --foreground: 160 25% 10%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 25% 10%;
 
-    --border: 214 32% 89%;
-    --input: 214 32% 89%;
+    --border: 140 14% 88%;
+    --input: 140 14% 86%;
 
-    --primary: 142 71% 38%;
+    --primary: 142 71% 36%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 94%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 120 16% 93%;
+    --secondary-foreground: 160 25% 10%;
 
-    --muted: 210 40% 94%;
-    --muted-foreground: 215 16% 46%;
+    --muted: 120 16% 93%;
+    --muted-foreground: 160 8% 42%;
 
-    --accent: 142 71% 38%;
+    --accent: 142 71% 36%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --ring: 142 71% 38%;
+    --ring: 142 71% 36%;
     --radius: 0.75rem;
   }
 
-  /* Dark theme */
+  /* Dark theme — deep forest charcoal, not flat black */
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 210 40% 98%;
+    --background: 160 18% 4%;
+    --foreground: 140 15% 96%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 210 40% 98%;
+    --card: 158 14% 7.5%;
+    --card-foreground: 140 15% 96%;
 
-    --border: 217 19% 20%;
-    --input: 217 19% 22%;
+    --border: 156 12% 17%;
+    --input: 156 12% 19%;
 
     --primary: 142 71% 45%;
     --primary-foreground: 144 100% 8%;
 
-    --secondary: 217 19% 16%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 157 12% 13%;
+    --secondary-foreground: 140 15% 96%;
 
-    --muted: 217 19% 16%;
-    --muted-foreground: 215 16% 68%;
+    --muted: 157 12% 13%;
+    --muted-foreground: 150 8% 66%;
 
     --accent: 142 71% 45%;
     --accent-foreground: 144 100% 8%;
 
     --destructive: 0 63% 55%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 140 15% 96%;
 
     --ring: 142 71% 45%;
   }
@@ -77,6 +77,16 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Display typeface for all headings */
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Numbers in stats always line up */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 
   /* Custom scrollbar */
@@ -163,6 +173,55 @@
     );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
+  }
+}
+
+@layer components {
+  /* Film grain overlay — adds tactility to hero sections */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Soft mesh of brand light for hero atmosphere */
+  .hero-mesh {
+    background:
+      radial-gradient(ellipse 60% 45% at 50% -5%, hsl(142 71% 45% / 0.14), transparent 60%),
+      radial-gradient(ellipse 35% 30% at 85% 25%, hsl(200 80% 55% / 0.07), transparent 60%),
+      radial-gradient(ellipse 30% 25% at 12% 35%, hsl(142 60% 50% / 0.06), transparent 60%);
+  }
+
+  /* Staggered entrance: apply to a parent, children fade up in sequence */
+  .stagger > * {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.13s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.21s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.29s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.37s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.45s; }
+  .stagger > *:nth-child(7) { animation-delay: 0.53s; }
+  .stagger > *:nth-child(8) { animation-delay: 0.61s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stagger > * {
+      animation: none;
+    }
+  }
+
+  /* Lifted card hover */
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px -12px hsl(160 30% 4% / 0.25), 0 0 0 1px hsl(var(--primary) / 0.15);
   }
 }
 

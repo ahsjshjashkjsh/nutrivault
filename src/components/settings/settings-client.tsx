@@ -187,7 +187,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
   ];
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-0 animate-fade-in max-w-3xl">
+    <div className="space-y-6 pb-20 lg:pb-0 stagger max-w-3xl">
       <div>
         <h1 className="text-2xl font-bold">{t("settings.title")}</h1>
         <p className="text-sm text-muted-foreground mt-1">

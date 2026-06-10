@@ -85,7 +85,7 @@ export function ProgressClient({
   };
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-0 animate-fade-in">
+    <div className="space-y-6 pb-20 lg:pb-0 stagger">
       <div>
         <h1 className="text-2xl font-bold">{t("progress.title")}</h1>
         <p className="text-sm text-muted-foreground mt-1">{t("progress.subtitle")}</p>

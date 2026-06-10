@@ -96,7 +96,7 @@ export function DashboardClient({
   const greeting = getGreeting(t);
 
   return (
-    <div className="space-y-6 pb-20 lg:pb-0 animate-fade-in">
+    <div className="space-y-6 pb-20 lg:pb-0 stagger">
       {/* Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
