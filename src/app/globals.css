@@ -78,6 +78,7 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-weight: 500;
     min-width: 320px;
     overflow-x: hidden;
   }
@@ -93,6 +94,13 @@
   /* Display typeface for all headings */
   h1, h2, h3, h4 {
     @apply font-display;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+
+  strong,
+  b {
+    font-weight: 800;
   }
 
   /* Numbers in stats always line up */
@@ -321,7 +329,7 @@
   }
 
   .dark .gradient-text {
-    @apply bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand-300 via-brand-400 to-brand-500 bg-clip-text text-transparent;
   }
 
   .glow-green {
@@ -407,12 +415,24 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  .dark .grain::before {
+    opacity: 0.18;
+    mix-blend-mode: soft-light;
+  }
+
   /* Soft mesh of brand light for hero atmosphere */
   .hero-mesh {
     background:
       radial-gradient(ellipse 60% 45% at 50% -5%, hsl(142 71% 45% / 0.14), transparent 60%),
       radial-gradient(ellipse 35% 30% at 85% 25%, hsl(200 80% 55% / 0.07), transparent 60%),
       radial-gradient(ellipse 30% 25% at 12% 35%, hsl(142 60% 50% / 0.06), transparent 60%);
+  }
+
+  .dark .hero-mesh {
+    background:
+      linear-gradient(to bottom, hsl(var(--background) / 0.2), hsl(var(--background)) 95%),
+      radial-gradient(ellipse 60% 42% at 50% -5%, hsl(var(--primary) / 0.22), transparent 62%),
+      radial-gradient(ellipse 32% 26% at 88% 24%, hsl(200 80% 55% / 0.1), transparent 65%);
   }
 
   .auth-shell {

@@ -16,6 +16,7 @@ const STORAGE_KEY = "nutrivault-theme";
 
 function applyTheme(theme: Theme) {
   const html = document.documentElement;
+  html.style.colorScheme = theme;
   if (theme === "dark") {
     html.classList.add("dark");
     html.classList.remove("light");
@@ -26,11 +27,11 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    const resolved: Theme = stored === "light" ? "light" : "dark";
+    const resolved: Theme = stored === "dark" ? "dark" : "light";
     setThemeState(resolved);
     applyTheme(resolved);
   }, []);

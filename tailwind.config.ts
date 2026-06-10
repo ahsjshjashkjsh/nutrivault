@@ -58,8 +58,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-figtree)", "system-ui", "sans-serif"],
-        display: ["var(--font-bricolage)", "var(--font-figtree)", "system-ui", "sans-serif"],
+        sans: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        display: ["var(--font-baloo)", "var(--font-nunito)", "system-ui", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

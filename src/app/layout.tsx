@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Baloo_2, Nunito } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 
-const bricolage = Bricolage_Grotesque({
+const baloo = Baloo_2({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  variable: "--font-baloo",
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
-const figtree = Figtree({
+const nunito = Nunito({
   subsets: ["latin"],
-  variable: "--font-figtree",
+  variable: "--font-nunito",
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -68,12 +70,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${figtree.variable} ${bricolage.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${nunito.variable} ${baloo.variable} light`} suppressHydrationWarning>
       <head>
         {/* Prevent flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('nutrivault-theme');document.documentElement.classList.add(t==='light'?'light':'dark');}catch(e){document.documentElement.classList.add('dark');}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('nutrivault-theme');var r=t==='dark'?'dark':'light';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(r);document.documentElement.style.colorScheme=r;}catch(e){document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light';}})();`,
           }}
         />
       </head>

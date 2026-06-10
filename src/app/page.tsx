@@ -100,7 +100,7 @@ export default function LandingPage() {
             {t("hero.badge")}
           </div>
 
-          <h1 className="text-[clamp(2.65rem,12vw,4.5rem)] leading-[0.98] font-bold tracking-[-0.05em] mb-6 text-balance">
+          <h1 className="text-[clamp(2.65rem,12vw,4.75rem)] leading-[0.96] font-extrabold tracking-[-0.035em] mb-6 text-balance">
             {t("hero.heading1")}{" "}
             <span className="gradient-text">{t("hero.heading2")}</span>{" "}
             <br className="hidden sm:block" />
@@ -129,7 +129,7 @@ export default function LandingPage() {
 
         {/* Dashboard Preview */}
         <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 mt-12 sm:mt-20 relative z-10 animate-fade-up [animation-delay:0.45s]">
-          <div className="relative rounded-[1.35rem] overflow-hidden border border-border bg-card shadow-2xl sm:animate-float">
+          <div className="relative rounded-[1.35rem] overflow-hidden border border-border bg-card/95 dark:bg-card shadow-2xl sm:animate-float">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/80 z-10 pointer-events-none" />
             <div className="p-4 sm:p-6 space-y-4">
               <div className="flex items-center justify-between">
