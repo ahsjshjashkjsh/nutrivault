@@ -197,6 +197,7 @@
       "dinner": "Dinner",
       "snack": "Snacks"
     },
+    "chooseMealType": "Which meal was this?",
     "createFood": "Create food",
     "createFoodTitle": "Create Custom Food",
     "foodNameLabel": "Food name",

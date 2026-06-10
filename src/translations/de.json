@@ -197,6 +197,7 @@
       "dinner": "Abendessen",
       "snack": "Snacks"
     },
+    "chooseMealType": "Zu welcher Mahlzeit gehört das?",
     "createFood": "Lebensmittel erstellen",
     "createFoodTitle": "Eigenes Lebensmittel erstellen",
     "foodNameLabel": "Lebensmittelname",

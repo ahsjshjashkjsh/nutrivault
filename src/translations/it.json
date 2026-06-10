@@ -195,8 +195,9 @@
       "breakfast": "Colazione",
       "lunch": "Pranzo",
       "dinner": "Cena",
-      "snack": "Spuntini"
+      "snack": "Merenda / spuntino"
     },
+    "chooseMealType": "Per quale pasto vuoi registrarlo?",
     "createFood": "Crea alimento",
     "createFoodTitle": "Crea alimento personalizzato",
     "foodNameLabel": "Nome alimento",

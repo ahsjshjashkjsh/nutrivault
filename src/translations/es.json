@@ -197,6 +197,7 @@
       "dinner": "Cena",
       "snack": "Meriendas"
     },
+    "chooseMealType": "¿A qué comida corresponde?",
     "createFood": "Crear alimento",
     "createFoodTitle": "Crear alimento personalizado",
     "foodNameLabel": "Nombre del alimento",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2, Sparkles, CheckCircle2, X, Zap, AlertTriangle } from "lucide-react";
 import {
   Dialog,
@@ -13,8 +13,7 @@ import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/language-context";
 import { formatCalories } from "@/lib/utils";
 import type { AIMealAnalysis, AIMealFood } from "@/lib/nutrition-agent";
-
-type MealType = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK";
+import { MealTypeSelect, type MealType } from "./meal-type-select";
 
 interface NaturalLanguageEntryProps {
   open: boolean;
@@ -39,6 +38,11 @@ export function NaturalLanguageEntry({
   const [adding, setAdding] = useState(false);
   const [step, setStep] = useState<"input" | "review">("input");
   const [error, setError] = useState<string | null>(null);
+  const [selectedMealType, setSelectedMealType] = useState<MealType>(mealType);
+
+  useEffect(() => {
+    if (open) setSelectedMealType(mealType);
+  }, [open, mealType]);
 
   const handleAnalyze = async () => {
     if (!input.trim()) return;
@@ -102,7 +106,7 @@ export function NaturalLanguageEntry({
     if (!analysis || adjustedItems.length === 0) return;
     setAdding(true);
     try {
-      await onAddAIItems(adjustedItems, mealType);
+      await onAddAIItems(adjustedItems, selectedMealType);
       handleClose();
     } finally {
       setAdding(false);
@@ -130,6 +134,10 @@ export function NaturalLanguageEntry({
             {t("diary.nlp.title")}
           </DialogTitle>
         </DialogHeader>
+
+        <div className="px-6 pt-5">
+          <MealTypeSelect value={selectedMealType} onChange={setSelectedMealType} />
+        </div>
 
         {step === "input" ? (
           <div className="p-6 space-y-5 flex flex-col flex-1">

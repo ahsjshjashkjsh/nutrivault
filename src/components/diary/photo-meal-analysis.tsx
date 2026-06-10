@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
   Camera,
@@ -22,8 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatCalories } from "@/lib/utils";
 import type { AIMealFood } from "@/lib/nutrition-agent";
-
-type MealType = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK";
+import { MealTypeSelect, type MealType } from "./meal-type-select";
 
 interface PhotoMealAnalysisProps {
   open: boolean;
@@ -64,6 +63,11 @@ export function PhotoMealAnalysis({
   const [error, setError] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [selectedMealType, setSelectedMealType] = useState<MealType>(mealType);
+
+  useEffect(() => {
+    if (open) setSelectedMealType(mealType);
+  }, [open, mealType]);
 
   const handleClose = () => {
     setStep("upload");
@@ -169,7 +173,7 @@ export function PhotoMealAnalysis({
     if (!analysis || adjustedItems.length === 0) return;
     setAdding(true);
     try {
-      await onAddAIItems(adjustedItems, mealType);
+      await onAddAIItems(adjustedItems, selectedMealType);
       handleClose();
     } finally {
       setAdding(false);
@@ -194,6 +198,12 @@ export function PhotoMealAnalysis({
         </DialogHeader>
 
         {/* ── Premium gate ─────────────────────────────────────────── */}
+        {isPremium && (
+          <div className="px-6 pt-5">
+            <MealTypeSelect value={selectedMealType} onChange={setSelectedMealType} />
+          </div>
+        )}
+
         {!isPremium ? (
           <div className="flex flex-col items-center justify-center gap-5 p-8 text-center flex-1">
             <div className="w-16 h-16 rounded-full bg-yellow-500/10 flex items-center justify-center">

@@ -78,7 +78,7 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
     setNlpModal({ open: true, mealType });
   };
 
-  const openPhotoModal = (mealType: MealType = "LUNCH") => {
+  const openPhotoModal = (mealType: MealType = "BREAKFAST") => {
     setPhotoModal({ open: true, mealType });
   };
 
@@ -368,7 +368,7 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
             size="sm"
             variant="outline"
             className="flex-shrink-0 border-brand-500/30 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10 hover:border-brand-500"
-            onClick={() => setNlpModal({ open: true, mealType: "LUNCH" })}
+            onClick={() => openNlpModal("BREAKFAST")}
           >
             <Sparkles className="w-3.5 h-3.5" />
             {t("diary.nlp.button")}
@@ -391,7 +391,7 @@ export function DiaryClient({ date, today, meals, totals, goal, waterMl: initial
             size="sm"
             variant="outline"
             className="flex-shrink-0"
-            onClick={() => openPhotoModal("LUNCH")}
+            onClick={() => openPhotoModal()}
           >
             <Camera className="w-3.5 h-3.5" />
             Photo

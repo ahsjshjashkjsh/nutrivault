@@ -197,6 +197,7 @@
       "dinner": "Dîner",
       "snack": "Collations"
     },
+    "chooseMealType": "À quel repas cela correspond-il ?",
     "createFood": "Créer un aliment",
     "createFoodTitle": "Créer un aliment personnalisé",
     "foodNameLabel": "Nom de l'aliment",
