@@ -41,7 +41,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ foods, source: "local" });
     }
 
-    // Search local database first (case-insensitive, includes user and AI foods)
+    // Tokenized search: every word must match name, brand or a translation.
+    // "schwein steak" finds "Schweinshals-Steak"; "petto pollo" finds the
+    // Italian translation of "Chicken Breast".
+    const tokens = query.trim().split(/\s+/).filter((t) => t.length >= 2).slice(0, 5);
+
     const localFoods = await prisma.food.findMany({
       where: {
         AND: [
@@ -51,12 +55,13 @@ export async function GET(request: NextRequest) {
               { createdBy: session.user.id },
             ],
           },
-          {
+          ...tokens.map((token) => ({
             OR: [
-              { name: { contains: query, mode: "insensitive" } },
-              { brand: { contains: query, mode: "insensitive" } },
+              { name: { contains: token, mode: "insensitive" as const } },
+              { brand: { contains: token, mode: "insensitive" as const } },
+              { nameTranslations: { contains: token, mode: "insensitive" as const } },
             ],
-          },
+          })),
         ],
       },
       take: limit,
@@ -66,11 +71,11 @@ export async function GET(request: NextRequest) {
       ],
     });
 
-    // If few local results, try OpenFoodFacts
+    // If few local results, try OpenFoodFacts (search-a-licious full-text API)
     let offFoods: typeof localFoods = [];
-    if (localFoods.length < 5 && process.env.OPENFOODFACTS_API_URL) {
+    if (localFoods.length < 5) {
       try {
-        const offUrl = `${process.env.OPENFOODFACTS_API_URL}/search?search_terms=${encodeURIComponent(query)}&fields=product_name,brands,nutriments,serving_size,code&page_size=10&json=1`;
+        const offUrl = `https://search.openfoodfacts.org/search?q=${encodeURIComponent(query)}&page_size=10&fields=product_name,product_name_de,brands,nutriments,code`;
         const offRes = await fetch(offUrl, {
           next: { revalidate: 3600 },
           headers: { "User-Agent": "NutriVault/1.0" },
@@ -78,33 +83,37 @@ export async function GET(request: NextRequest) {
 
         if (offRes.ok) {
           const offData = await offRes.json();
-          const products = offData.products || [];
+          const products = offData.hits || [];
 
-          offFoods = products
+          type OffHit = {
+            product_name?: string;
+            product_name_de?: string;
+            brands?: string | string[];
+            nutriments?: {
+              "energy-kcal_100g"?: number;
+              proteins_100g?: number;
+              carbohydrates_100g?: number;
+              fat_100g?: number;
+              fiber_100g?: number;
+            };
+            code?: string;
+          };
+
+          offFoods = (products as OffHit[])
             .filter(
-              (p: { product_name?: string; nutriments?: { "energy-kcal_100g"?: number } }) =>
-                p.product_name && p.nutriments?.["energy-kcal_100g"]
+              (p) => (p.product_name_de || p.product_name) && p.nutriments?.["energy-kcal_100g"]
             )
-            .map((p: {
-              product_name: string;
-              brands?: string;
-              nutriments: {
-                "energy-kcal_100g"?: number;
-                proteins_100g?: number;
-                carbohydrates_100g?: number;
-                fat_100g?: number;
-                fiber_100g?: number;
-              };
-              code?: string;
-            }) => ({
+            .map((p) => ({
               id: `off-${p.code || Math.random()}`,
-              name: p.product_name,
-              brand: p.brands || null,
-              calories: Math.round(p.nutriments["energy-kcal_100g"] || 0),
-              proteinG: Math.round((p.nutriments.proteins_100g || 0) * 10) / 10,
-              carbsG: Math.round((p.nutriments.carbohydrates_100g || 0) * 10) / 10,
-              fatG: Math.round((p.nutriments.fat_100g || 0) * 10) / 10,
-              fiberG: p.nutriments.fiber_100g
+              name: (p.product_name_de || p.product_name) as string,
+              brand: p.brands
+                ? (Array.isArray(p.brands) ? p.brands[0] : p.brands.split(",")[0]).trim()
+                : null,
+              calories: Math.round(p.nutriments?.["energy-kcal_100g"] || 0),
+              proteinG: Math.round((p.nutriments?.proteins_100g || 0) * 10) / 10,
+              carbsG: Math.round((p.nutriments?.carbohydrates_100g || 0) * 10) / 10,
+              fatG: Math.round((p.nutriments?.fat_100g || 0) * 10) / 10,
+              fiberG: p.nutriments?.fiber_100g
                 ? Math.round(p.nutriments.fiber_100g * 10) / 10
                 : null,
               servingSize: 100,
@@ -115,6 +124,7 @@ export async function GET(request: NextRequest) {
               createdBy: null,
               sugarG: null,
               sodiumMg: null,
+              nameTranslations: null,
               createdAt: new Date(),
               updatedAt: new Date(),
             }));
